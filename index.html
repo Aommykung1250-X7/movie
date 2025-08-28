@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ดูหนังกันนน🍿</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      background: #fff8f0;
+      padding: 0;
+      margin: 0;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ff6b81;
+      transition: 0.3s;
+    }
+    img {
+      width: 250px;
+      border-radius: 16px;
+      margin: 20px 0;
+      transition: 0.3s ease;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+    }
+    #yesBtn {
+      background: #ffb347;
+      color: white;
+      z-index: 10;
+    }
+    #noBtn {
+      background: #aaa;
+      color: white;
+      z-index: 5;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">ไปดูหนังกันม้ายยย🍿🎬</h1>
+  <img id="gif" src="cat.gif" alt="movie gif">
+
+  <div class="buttons">
+    <button id="yesBtn">ไปไป👌</button>
+    <button id="noBtn">ไว้ก่อนนะ</button>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const gif = document.getElementById("gif");
+    const title = document.getElementById("title");
+
+    const noWords = [
+      "ไว้ก่อนนะ", 
+      "จริงอ่ะ?", 
+      "แน่ใจนะ?", 
+      "คิดใหม่ดีมั้ย?", 
+      "นะนะนะนะ", 
+      "น้าาาาาาา",
+      "คิดอีกทีๆ🥺",
+      "ฮือออออ",
+      "จะร้องไห้แล้ววนะะ😭"
+    ];
+    let noIndex = 0;
+
+    function resetButton() {
+      noIndex = 0;
+      yesBtn.style.fontSize = "1.2rem";
+      yesBtn.style.width = "";
+      yesBtn.style.height = "";
+      yesBtn.style.borderRadius = "12px";
+      yesBtn.textContent = "ไปไป";
+      noBtn.textContent = "ไว้ก่อนนะ";
+      noBtn.classList.remove("hidden");
+    }
+
+    noBtn.addEventListener("click", () => {
+      if (noIndex < noWords.length) {
+        noBtn.textContent = noWords[noIndex];
+        
+        // ขยายปุ่ม Yes ตามจำนวนครั้ง
+        let maxFont = 12; 
+        let step = (maxFont - 1.2) / (noWords.length - 1); 
+        let newSize = 1.2 + step * noIndex;
+        yesBtn.style.fontSize = newSize + "rem";
+
+        noIndex++;
+
+        // ถ้าถึงคำสุดท้าย → Yes เต็มจอ
+        if (noIndex === noWords.length) {
+          noBtn.classList.add("hidden");
+          yesBtn.style.width = "100vw";
+          yesBtn.style.height = "100vh";
+          yesBtn.style.borderRadius = "0";
+        }
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      if (noIndex === noWords.length) {
+        // ถ้าอยู่ตอนท้าย → รีเซ็ตปุ่มกลับมา
+        gif.src = "bug-cat.gif";
+        title.textContent = "😊เย้ๆ! ไปก้านนน🍿";
+        resetButton();
+      } else {
+        // ถ้ายังไม่สุด → เปลี่ยน gif & ข้อความ
+        gif.src = "bug-cat.gif";
+        title.textContent = "😊เย้ๆ! ไปก้านนน🍿";
+      }
+    });
+  </script>
+</body>
+</html>
